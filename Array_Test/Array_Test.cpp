@@ -6,23 +6,71 @@
 
 using namespace std;
 
-// 동적 메모리 할당 예제
-int main()
+// 동적 메모리를 관리하는 클래스
+template <typename T>
+class DynamicArray
 {
-	// 동적 메모리 할당
-	int* ptr = new int[3] {};
-	ptr[0] = 10;
-	ptr[1] = 20;
+private:
+	unsigned int sz;
+	T* arr;
 
-	for (int i = 0; i < 3; i++)
+public:
+	// 생성자: 매개변수로 크기를 입력받아 배열을 생성
+	DynamicArray(int n) : sz(n)
 	{
-		cout << ptr[i] << endl;
+		arr = new T[sz] {};
 	}
 
-	// 동적 메모리 할당
-	delete[] ptr;
-	ptr = nullptr;
+	// 소멸자: 할당된 메모리를 해제
+	~DynamicArray()
+	{
+		delete[] arr;
+		//arr = nullptr;
+		cout << "동적 메모리 해제" << endl;
+		//cin.get();
+	}
+
+	unsigned int size()
+	{
+		return sz;
+	}
+
+	T& operator[] (const int i) { return arr[i]; }
+};
+
+int main()
+{
+	// 메모리 할당
+	DynamicArray<float> da(5);
+	da[0] = 10.5;
+	da[1] = 20.4;
+	da[2] = 30.3;
+
+	for (int i = 0; i < da.size(); i++)
+	{
+		cout << da[i] << endl;
+	}
+
+	// 메모리 해제
 }
+
+// 동적 메모리 할당 예제
+//int main()
+//{
+//	// 동적 메모리 할당
+//	int* ptr = new int[3] {};
+//	ptr[0] = 10;
+//	ptr[1] = 20;
+//
+//	for (int i = 0; i < 3; i++)
+//	{
+//		cout << ptr[i] << endl;
+//	}
+//
+//	// 동적 메모리 할당
+//	delete[] ptr;
+//	ptr = nullptr;
+//}
 
 // C++ 언어 배열 구현
 //int main()
